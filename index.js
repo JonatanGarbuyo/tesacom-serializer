@@ -35,7 +35,6 @@ class BinaryParser {
    * @memberof BinaryParser
    * @version ?
    */
-
   encode(_object, format) {
     const buffer = Buffer.concat(
       format.map((f) => {
@@ -47,8 +46,8 @@ class BinaryParser {
         return buf
       })
     )
-
-    return { size: Buffer.byteLength(buffer), buffer }
+    const size = Buffer.byteLength(buffer) * 8
+    return { size, buffer }
   }
 }
 
