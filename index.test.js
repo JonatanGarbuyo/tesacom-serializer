@@ -3,14 +3,7 @@ const BinaryParser = require('./')
 describe('test BinaryParser encoder function', () => {
   let format = []
   let data = {}
-
-  it('should return a number and a buffer', () => {
-    const bp = new BinaryParser()
-    const { size, buffer } = bp.encode(data, format)
-
-    expect(typeof size).toBe('number')
-    expect(Buffer.isBuffer(buffer)).toBe(true)
-  })
+  const bp = new BinaryParser()
 
   it('should return the size of buffer and an encoded buffer', () => {
     format = [
@@ -24,11 +17,12 @@ describe('test BinaryParser encoder function', () => {
       v2: 3,
     }
 
-    const bp = new BinaryParser()
     const { size, buffer } = bp.encode(data, format)
 
+    expect(typeof size).toBe('number')
+    expect(size).toBe(24)
+    expect(Buffer.isBuffer(buffer)).toBe(true)
     expect(buffer.toString('hex')).toBe('010203')
-    expect(size).toBe(3)
   })
 
   it('should return the size of buffer and an encoded buffer from diferents size of data', () => {
@@ -39,11 +33,10 @@ describe('test BinaryParser encoder function', () => {
     ]
     data = { PTemp: 268, 'BattVolt.value': 224, WaterLevel: 115 }
 
-    const bp = new BinaryParser()
     const { size, buffer } = bp.encode(data, format)
 
     expect(buffer.toString('hex')).toBe('010c00e073')
-    expect(size).toBe(5)
+    expect(size).toBe(40)
   })
 
   it('should return the size of buffer and an encoded buffer from diferents type of data', () => {
@@ -54,11 +47,10 @@ describe('test BinaryParser encoder function', () => {
     ]
     data = { PTemp: 268, 'BattVolt.value': 224, WaterLevel: 115 }
 
-    const bp = new BinaryParser()
     const { size, buffer } = bp.encode(data, format)
 
     expect(buffer.toString('hex')).toBe('010c00e073')
-    expect(size).toBe(5)
+    expect(size).toBe(40)
   })
 })
 
