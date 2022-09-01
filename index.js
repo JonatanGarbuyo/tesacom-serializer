@@ -28,7 +28,7 @@ class BinaryParser {
     const buffer = Buffer.concat(
       format.map((f) => {
         const value = _object[f.tag]
-        const bufSize = f.len / 8
+        const bufSize = Math.ceil(f.len / 8)
         const buf = Buffer.alloc(bufSize)
 
         buf.writeIntBE(value, 0, bufSize)
