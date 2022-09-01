@@ -11,6 +11,12 @@ class BinaryParser {
    * @version ?
    */
   decode(buffer, format) {
+    // validate format
+    if (Array.isArray(format) && format.length < 1)
+      throw new Error('wrong format data')
+    // validate buffer
+    if (!Buffer.isBuffer(buffer)) throw new Error('wrong buffer type')
+
     const _object = {}
     let start = 0
 
@@ -36,6 +42,16 @@ class BinaryParser {
    * @version ?
    */
   encode(_object, format) {
+    // validate format
+    if (Array.isArray(format) && format.length < 1)
+      throw new Error('wrong format data')
+    //validate _object
+    if (typeof _object != 'object') throw new Error('wrong  data type.')
+    // validate matching data/format
+    const matchingFormat = format.every((f) => _object.hasOwnProperty(f.tag))
+    if (!matchingFormat) throw new Error('wrong data or format')
+
+    // encode
     const buffer = Buffer.concat(
       format.map((f) => {
         const value = _object[f.tag]

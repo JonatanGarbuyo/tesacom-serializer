@@ -5,6 +5,20 @@ describe('test BinaryParser encoder function', () => {
   let data = {}
   const bp = new BinaryParser()
 
+  it('should throw an error on empty format', () => {
+    expect(() => bp.encode(data, format)).toThrow()
+  })
+
+  it('should throw an error on wrong data type', () => {
+    format = [{ tag: 'v0', type: 'int', len: 8 }]
+    expect(() => bp.encode((data = ''), format)).toThrow()
+  })
+
+  it('should throw an error on mismatching data/format', () => {
+    format = [{ tag: 'v0', type: 'int', len: 8 }]
+    expect(() => bp.encode(data, format)).toThrow()
+  })
+
   it('should return the size of buffer and an encoded buffer', () => {
     format = [
       { tag: 'v0', type: 'int', len: 8 },
@@ -59,9 +73,13 @@ describe('test BinaryParser decoder function', () => {
   let buffer = Buffer.from('0x0', 'hex')
   const bp = new BinaryParser()
 
-  it('should return a data object', () => {
-    const _object = bp.decode(buffer, format)
-    expect(typeof _object).toBe('object')
+  it('should throw an error on empty format', () => {
+    expect(() => bp.decode(buffer, format)).toThrow()
+  })
+
+  it('should throw an error on wrong buffer type', () => {
+    format = [{ tag: 'v0', type: 'int', len: 8 }]
+    expect(() => bp.decode((buffer = ''), format)).toThrow()
   })
 
   it('should return an object with passed format', () => {
