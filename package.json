@@ -1,6 +1,6 @@
 {
   "name": "tesacom-serializer",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "optimización de tramas de datos a ser enviados desde y hacia dispositivos remotos de manera tal que sean lo más reducidas en longitud posibles (ahorro de bytes / zero overhead). ",
   "author": "Jonatan Garbuyo",
   "license": "MIT",
@@ -9,7 +9,7 @@
     "node": ">=16.0.0"
   },
   "scripts": {
-    "test": "jest"
+    "test": "jest --watch"
   },
   "repository": {
     "type": "git",
@@ -17,5 +17,8 @@
   },
   "files": [
     "index.js"
-  ]
+  ],
+  "devDependencies": {
+    "jest": "^29.0.1"
+  }
 }
