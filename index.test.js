@@ -65,11 +65,10 @@ describe('test BinaryParser encoder function', () => {
 describe('test BinaryParser decoder function', () => {
   let format = []
   let buffer = Buffer.from('0x0', 'hex')
+  const bp = new BinaryParser()
 
   it('should return a data object', () => {
-    const bp = new BinaryParser()
     const _object = bp.decode(buffer, format)
-
     expect(typeof _object).toBe('object')
   })
 
@@ -79,16 +78,14 @@ describe('test BinaryParser decoder function', () => {
       { tag: 'v1', type: 'int', len: 8 },
       { tag: 'v2', type: 'int', len: 8 },
     ]
-    data = Buffer.from('010203', 'hex')
+    buffer = Buffer.from('010203', 'hex')
     const expectedData = {
       v0: 1,
       v1: 2,
       v2: 3,
     }
 
-    const bp = new BinaryParser()
-    const _object = bp.decode(data, format)
-
+    const _object = bp.decode(buffer, format)
     expect(_object).toEqual(expectedData)
   })
 
@@ -98,12 +95,10 @@ describe('test BinaryParser decoder function', () => {
       { tag: 'BattVolt.value', type: 'int', len: 12 },
       { tag: 'WaterLevel', type: 'int', len: 8 },
     ]
-    data = Buffer.from('10C0E073', 'hex')
+    buffer = Buffer.from('10C0E073', 'hex')
     const expectedData = { PTemp: 268, 'BattVolt.value': 224, WaterLevel: 115 }
 
-    const bp = new BinaryParser()
-    const _object = bp.decode(data, format)
-
+    const _object = bp.decode(buffer, format)
     expect(_object).toEqual(expectedData)
   })
 })
