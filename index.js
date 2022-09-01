@@ -1,4 +1,5 @@
 'use strict'
+
 class BinaryParser {
   /**
    * v0.1.0 | Jonatan Garbuyo | Primera versión
@@ -10,8 +11,18 @@ class BinaryParser {
    * @version ?
    */
   decode(buffer, format) {
-    let _object = {}
-    // ToDo
+    const _object = {}
+    let start = 0
+
+    format.forEach((f) => {
+      const size = (f.len / 8) * 2
+      const end = start + size
+      const bufferString = buffer.toString('hex').slice(start, end)
+      const data = parseInt(bufferString, 16)
+      start += size
+      _object[f.tag] = data
+    })
+
     return _object
   }
 
@@ -24,6 +35,7 @@ class BinaryParser {
    * @memberof BinaryParser
    * @version ?
    */
+
   encode(_object, format) {
     const buffer = Buffer.concat(
       format.map((f) => {
