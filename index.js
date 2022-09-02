@@ -1,14 +1,26 @@
+//@ts-check
 'use strict'
 
+/**
+ * @typedef {object} Format
+ * @property {number} Format.len
+ * @property {string} Format.tag
+ * @property {string} Format.type
+ */
+
+/**
+ * Creates a new BinaryParser.
+ * @class
+ */
 class BinaryParser {
   /**
-   * v0.1.0 | Jonatan Garbuyo | Primera versión
-   *
-   * @param {buffer} buffer -> Trama a deserializar
-   * @param {*} format -> Formato de serialización (ver notas adjuntas)
-   * @return {*} Objeto "composición" (trama deserializada en campos tag = valor)
+   * @description Decodes a bufer to specified format object
+   * @param {Buffer} buffer  Node.js Buffer.
+   * @param {Format[]} format Format of de-serialization
+   * @return {object}  Formated object
    * @memberof BinaryParser
-   * @version ?
+   * @version v0.1.0
+   * @author Jonatan Garbuyo <jonatangarbuyo@gmail.com>
    */
   decode(buffer, format) {
     // validate format
@@ -33,13 +45,13 @@ class BinaryParser {
   }
 
   /**
-   * v0.1.0 | Jonatan Garbuyo | Primera versión
-   *
-   * @param {*} _object -> Objeto a frasear (serializar)
-   * @param {*} format -> Formato de serialización (ver notas adjuntas)
-   * @return {*} size -> tamaño en bits de la trama. buffer -> Node.js Buffer.
+   * @description Encodes an Object of specified format to a Buffer
+   * @param {object} _object  Object to serialize
+   * @param {Format[]} format  Format of serialization
+   * @return {{size: number, buffer: Buffer}} Object  (size -> bits size of buffer) - (buffer -> Node.js Buffer).
    * @memberof BinaryParser
-   * @version ?
+   * @version v0.1.0
+   * @author Jonatan Garbuyo <jonatangarbuyo@gmail.com>
    */
   encode(_object, format) {
     // validate format
