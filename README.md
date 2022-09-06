@@ -55,8 +55,8 @@ var data = { PTemp: 268, BattVolt.value: 224, WaterLevel: 115 };
 
 var bp = new BinaryParser();
 var dataEncoded = bp.encode(data, format1);
-console.log(dataEncoded.buffer.toString('hex')); //prints 010C0E073
-console.log(dataEncoded.size); //prints 40
+console.log(dataEncoded.buffer.toString('hex')); //prints 10c0e073
+console.log(dataEncoded.size); //prints 32
 
 var dataDecoded = bp.decode(dataEncoded.buffer, format1);
 console.log(dataDecoded) //prints { PTemp: 268, 'BattVolt.value': 224, WaterLevel: 15 }
