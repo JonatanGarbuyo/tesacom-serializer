@@ -49,8 +49,8 @@ describe('test BinaryParser encoder function', () => {
 
     const { size, buffer } = bp.encode(data, format)
 
-    expect(buffer.toString('hex')).toBe('010c00e073')
-    expect(size).toBe(40)
+    expect(buffer.toString('hex')).toBe('10c0e073')
+    expect(size).toBe(32)
   })
 
   it('should return the size of buffer and an encoded buffer from diferents type of data', () => {
@@ -63,8 +63,25 @@ describe('test BinaryParser encoder function', () => {
 
     const { size, buffer } = bp.encode(data, format)
 
-    expect(buffer.toString('hex')).toBe('010c00e073')
-    expect(size).toBe(40)
+    expect(buffer.toString('hex')).toBe('10c0e073')
+    expect(size).toBe(32)
+  })
+
+  it('should return the size of buffer and an encoded buffer from diferents type of data', () => {
+    format = [
+      { tag: 'var2.value', type: 'uint', len: 11 },
+      { tag: 'var3.value', type: 'int', len: 10 },
+      { tag: 'var6.value', type: 'float' },
+    ]
+    data = {
+      'var2.value': 5,
+      'var3.value': 11,
+      'var6.value': 263.3,
+    }
+    const { size, buffer } = bp.encode(data, format)
+
+    expect(buffer.toString('hex')).toBe('00a05a1c1d3306')
+    expect(size).toBe(53)
   })
 })
 
@@ -105,8 +122,25 @@ describe('test BinaryParser decoder function', () => {
       { tag: 'BattVolt.value', type: 'int', len: 12 },
       { tag: 'WaterLevel', type: 'int', len: 8 },
     ]
-    buffer = Buffer.from('10C0E073', 'hex')
+    buffer = Buffer.from('10c0e073', 'hex')
     const expectedData = { PTemp: 268, 'BattVolt.value': 224, WaterLevel: 115 }
+
+    const _object = bp.decode(buffer, format)
+    expect(_object).toEqual(expectedData)
+  })
+
+  it('should return an object with passed format with diferents size of data', () => {
+    format = [
+      { tag: 'var2.value', type: 'uint', len: 11 },
+      { tag: 'var3.value', type: 'int', len: 10 },
+      { tag: 'var6.value', type: 'float' },
+    ]
+    buffer = Buffer.from('00a05a1c1d3306', 'hex')
+    const expectedData = {
+      'var2.value': 5,
+      'var3.value': 11,
+      'var6.value': 263.3,
+    }
 
     const _object = bp.decode(buffer, format)
     expect(_object).toEqual(expectedData)
