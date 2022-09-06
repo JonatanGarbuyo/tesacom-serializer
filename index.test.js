@@ -67,7 +67,7 @@ describe('test BinaryParser encoder function', () => {
     expect(size).toBe(32)
   })
 
-  it('should return the size of buffer and an encoded buffer from diferents type of data', () => {
+  it('should return the size of buffer and an encoded buffer of integers and floats', () => {
     format = [
       { tag: 'var2.value', type: 'uint', len: 11 },
       { tag: 'var3.value', type: 'int', len: 10 },
@@ -129,7 +129,7 @@ describe('test BinaryParser decoder function', () => {
     expect(_object).toEqual(expectedData)
   })
 
-  it('should return an object with passed format with diferents size of data', () => {
+  it('should return an object with passed format with diferents types of data', () => {
     format = [
       { tag: 'var2.value', type: 'uint', len: 11 },
       { tag: 'var3.value', type: 'int', len: 10 },
